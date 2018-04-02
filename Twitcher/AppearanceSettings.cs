@@ -15,9 +15,13 @@ namespace Twitcher
     {
         public delegate void ButtonClickedEventHandler(object sender, EventArgs e);
 
+        public delegate void Eventhandler(object sender, EventArgs e);
+
         public event ButtonClickedEventHandler MetroTile_Click;
 
-        public event ButtonClickedEventHandler MetroToggle_Click;
+        public event Eventhandler MetroCheckedChange;
+
+        //this.themeToggle.CheckedChanged += new System.EventHandler(this.themeToggle_CheckedChanged);
 
         public AppearanceSettings()
         {
@@ -30,12 +34,12 @@ namespace Twitcher
                     c.Click += new EventHandler(onMetroClick);
                 }
             }
-            themeToggle.Click += new EventHandler(onToggleClick);
+            themeToggle.CheckedChanged += new EventHandler(onToggleChange);
         }
 
-        private void onToggleClick(object sender, EventArgs e)
+        private void onToggleChange(object sender, EventArgs e)
         {
-            MetroToggle_Click?.Invoke(sender, e);
+            MetroCheckedChange?.Invoke(sender, e);
         }
 
         private void onMetroClick(object sender, EventArgs e)
@@ -47,10 +51,6 @@ namespace Twitcher
         {
             get { return themeToggle.Checked; }
             set { themeToggle.Checked = value; }
-        }
-
-        private void themeToggle_CheckedChanged(object sender, EventArgs e)
-        {
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Twitcher
         {
             InitializeComponent();
             ds.MetroTile_Click += Ds_MetroTile_Click;
-            ds.MetroToggle_Click += Ds_MetroToggle_Click;
+            ds.MetroCheckedChange += Ds_MetroToggle_Click;
         }
 
         private void Ds_MetroToggle_Click(object sender, EventArgs e)
@@ -38,6 +38,8 @@ namespace Twitcher
             {
                 Properties.Settings.Default.theme = 2;
             }
+            Properties.Settings.Default.Save();
+
             applyStyle();
         }
 
@@ -180,24 +182,31 @@ namespace Twitcher
 
         public void applyStyle()
         {
-            metroStyleManager1.Style = (MetroColorStyle)Properties.Settings.Default.color;
-            Style = metroStyleManager1.Style;
+            try
+            {
+                metroStyleManager1.Style = (MetroColorStyle)Properties.Settings.Default.color;
+                Style = metroStyleManager1.Style;
 
-            if (Properties.Settings.Default.theme == 2)
-            {
-                ds.ThemeChecked = true;
-                metroStyleManager1.Theme = (MetroThemeStyle)Properties.Settings.Default.theme;
-                Theme = metroStyleManager1.Theme;
-                toolStripLabel1.ForeColor = Color.White;
+                if (Properties.Settings.Default.theme == 2)
+                {
+                    ds.ThemeChecked = true;
+                    metroStyleManager1.Theme = (MetroThemeStyle)Properties.Settings.Default.theme;
+                    Theme = metroStyleManager1.Theme;
+                    toolStripLabel1.ForeColor = Color.White;
+                }
+                else
+                {
+                    ds.ThemeChecked = false;
+                    metroStyleManager1.Theme = (MetroThemeStyle)Properties.Settings.Default.theme;
+                    Theme = metroStyleManager1.Theme;
+                    toolStripLabel1.ForeColor = Color.Black;
+                }
+                metroStyleManager1.Update();
             }
-            else
+            catch (Exception e)
             {
-                ds.ThemeChecked = false;
-                metroStyleManager1.Theme = (MetroThemeStyle)Properties.Settings.Default.theme;
-                Theme = metroStyleManager1.Theme;
-                toolStripLabel1.ForeColor = Color.Black;
+                MetroMessageBox.Show(Owner, e.Message);
             }
-            metroStyleManager1.Update();
         }
 
         private void metroButton3_Click(object sender, EventArgs e)

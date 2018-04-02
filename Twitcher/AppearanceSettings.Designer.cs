@@ -249,7 +249,6 @@
             this.themeToggle.TabIndex = 27;
             this.themeToggle.Text = "Aus";
             this.themeToggle.UseSelectable = true;
-            this.themeToggle.CheckedChanged += new System.EventHandler(this.themeToggle_CheckedChanged);
             // 
             // metroLabel2
             // 

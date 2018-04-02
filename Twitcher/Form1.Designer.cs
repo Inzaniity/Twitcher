@@ -99,6 +99,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Connection");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Prebuild");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Custom");
@@ -108,10 +112,6 @@
             treeNode3,
             treeNode4});
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Appearance");
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button1 = new MetroFramework.Controls.MetroButton();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button2 = new MetroFramework.Controls.MetroButton();
@@ -120,8 +120,6 @@
             this.btnSendChat = new MetroFramework.Controls.MetroButton();
             this.txtBoxChatMsg = new MetroFramework.Controls.MetroTextBox();
             this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
-            this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
-            this.treeView1 = new System.Windows.Forms.TreeView();
             this.metroTabControl2 = new MetroFramework.Controls.MetroTabControl();
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
             this.metroTabPage4 = new MetroFramework.Controls.MetroTabPage();
@@ -145,6 +143,8 @@
             this.Action = new System.Windows.Forms.DataGridViewButtonColumn();
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.metroTabPage8 = new MetroFramework.Controls.MetroTabPage();
+            this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.metroToolTip1 = new MetroFramework.Components.MetroToolTip();
@@ -294,45 +294,6 @@
             this.metroTabPage2.VerticalScrollbarBarColor = true;
             this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage2.VerticalScrollbarSize = 10;
-            // 
-            // metroPanel1
-            // 
-            this.metroPanel1.HorizontalScrollbarBarColor = true;
-            this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel1.HorizontalScrollbarSize = 10;
-            this.metroPanel1.Location = new System.Drawing.Point(771, 356);
-            this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(690, 389);
-            this.metroPanel1.TabIndex = 3;
-            this.metroPanel1.VerticalScrollbarBarColor = true;
-            this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanel1.VerticalScrollbarSize = 10;
-            this.metroPanel1.Visible = false;
-            // 
-            // treeView1
-            // 
-            this.metroStyleExtender1.SetApplyMetroTheme(this.treeView1, true);
-            this.treeView1.Location = new System.Drawing.Point(3, 6);
-            this.treeView1.Name = "treeView1";
-            treeNode1.Name = "NodeCon";
-            treeNode1.Text = "Connection";
-            treeNode2.Name = "NodeCmdPreBuild";
-            treeNode2.Text = "Prebuild";
-            treeNode3.Name = "NodeCmdCustom";
-            treeNode3.Text = "Custom";
-            treeNode4.Name = "NodeCmdTimer";
-            treeNode4.Text = "Timer";
-            treeNode5.Name = "NodeCmd";
-            treeNode5.Text = "Commands";
-            treeNode6.Name = "NodeDesign";
-            treeNode6.Text = "Appearance";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode5,
-            treeNode6});
-            this.treeView1.Size = new System.Drawing.Size(108, 389);
-            this.treeView1.TabIndex = 2;
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // metroTabControl2
             // 
@@ -739,6 +700,45 @@
             this.metroTabPage8.VerticalScrollbarBarColor = true;
             this.metroTabPage8.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage8.VerticalScrollbarSize = 10;
+            // 
+            // metroPanel1
+            // 
+            this.metroPanel1.HorizontalScrollbarBarColor = true;
+            this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroPanel1.HorizontalScrollbarSize = 10;
+            this.metroPanel1.Location = new System.Drawing.Point(771, 356);
+            this.metroPanel1.Name = "metroPanel1";
+            this.metroPanel1.Size = new System.Drawing.Size(690, 389);
+            this.metroPanel1.TabIndex = 3;
+            this.metroPanel1.VerticalScrollbarBarColor = true;
+            this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
+            this.metroPanel1.VerticalScrollbarSize = 10;
+            this.metroPanel1.Visible = false;
+            // 
+            // treeView1
+            // 
+            this.metroStyleExtender1.SetApplyMetroTheme(this.treeView1, true);
+            this.treeView1.Location = new System.Drawing.Point(3, 6);
+            this.treeView1.Name = "treeView1";
+            treeNode1.Name = "NodeCon";
+            treeNode1.Text = "Connection";
+            treeNode2.Name = "NodeCmdPreBuild";
+            treeNode2.Text = "Prebuild";
+            treeNode3.Name = "NodeCmdCustom";
+            treeNode3.Text = "Custom";
+            treeNode4.Name = "NodeCmdTimer";
+            treeNode4.Text = "Timer";
+            treeNode5.Name = "NodeCmd";
+            treeNode5.Text = "Commands";
+            treeNode6.Name = "NodeDesign";
+            treeNode6.Text = "Appearance";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode5,
+            treeNode6});
+            this.treeView1.Size = new System.Drawing.Size(108, 389);
+            this.treeView1.TabIndex = 2;
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // metroStyleManager1
             // 
