@@ -216,6 +216,7 @@
             this.metroTile2.Tag = "1";
             this.metroTile2.Text = "White";
             this.metroTile2.TileTextFontWeight = MetroFramework.MetroTileTextWeight.Regular;
+            this.metroTile2.UseCustomForeColor = true;
             this.metroTile2.UseSelectable = true;
             // 
             // metroTile1

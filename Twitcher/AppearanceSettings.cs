@@ -34,6 +34,15 @@ namespace Twitcher
                     c.Click += new EventHandler(onMetroClick);
                 }
             }
+            if (Properties.Settings.Default.theme == 2)
+            {
+                themeToggle.Checked = true;
+            }
+            else
+            {
+                themeToggle.Checked = false;
+            }
+
             themeToggle.CheckedChanged += new EventHandler(onToggleChange);
         }
 
@@ -50,7 +59,20 @@ namespace Twitcher
         public Boolean ThemeChecked
         {
             get { return themeToggle.Checked; }
-            set { themeToggle.Checked = value; }
+            set
+            {
+                themeToggle.CheckedChanged -= onToggleChange;
+
+                if (value)
+                {
+                    themeToggle.Checked = true;
+                }
+                else
+                {
+                    themeToggle.Checked = false;
+                };
+                themeToggle.CheckedChanged += onToggleChange;
+            }
         }
     }
 }

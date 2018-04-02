@@ -32,11 +32,11 @@ namespace Twitcher
             var mtoggle = (MetroFramework.Controls.MetroToggle)sender;
             if (mtoggle.Checked)
             {
-                Properties.Settings.Default.theme = 1;
+                Properties.Settings.Default.theme = 2;
             }
             else
             {
-                Properties.Settings.Default.theme = 2;
+                Properties.Settings.Default.theme = 1;
             }
             Properties.Settings.Default.Save();
 
@@ -142,7 +142,14 @@ namespace Twitcher
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            treeView1.ExpandAll();
             metroPanel1.Controls.Add(ds);
+            metroPanel1.Controls.Add(cs);
+
+            foreach (Control item in metroPanel1.Controls)
+            {
+                item.Visible = false;
+            }
 
             #region Reading from Config (Theme Style and other)
 
@@ -189,14 +196,14 @@ namespace Twitcher
 
                 if (Properties.Settings.Default.theme == 2)
                 {
-                    ds.ThemeChecked = true;
+                    //ds.ThemeChecked = true;
                     metroStyleManager1.Theme = (MetroThemeStyle)Properties.Settings.Default.theme;
                     Theme = metroStyleManager1.Theme;
                     toolStripLabel1.ForeColor = Color.White;
                 }
                 else
                 {
-                    ds.ThemeChecked = false;
+                    //ds.ThemeChecked = false;
                     metroStyleManager1.Theme = (MetroThemeStyle)Properties.Settings.Default.theme;
                     Theme = metroStyleManager1.Theme;
                     toolStripLabel1.ForeColor = Color.Black;
@@ -451,6 +458,16 @@ namespace Twitcher
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            if (treeView1.SelectedNode.Text == "Connection")
+            {
+                ds.Visible = false;
+                cs.Visible = true;
+            }
+            else if (treeView1.SelectedNode.Text == "Appearance")
+            {
+                ds.Visible = true;
+                cs.Visible = false;
+            }
         }
 
         private void ReadDb()
