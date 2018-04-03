@@ -98,7 +98,8 @@
             // richTextBox1
             // 
             this.metroStyleExtender1.SetApplyMetroTheme(this.richTextBox1, true);
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.richTextBox1.Location = new System.Drawing.Point(3, 3);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
@@ -128,7 +129,7 @@
             this.metroTabControl1.FontWeight = MetroFramework.MetroTabControlWeight.Regular;
             this.metroTabControl1.Location = new System.Drawing.Point(23, 63);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 1;
+            this.metroTabControl1.SelectedIndex = 0;
             this.metroTabControl1.Size = new System.Drawing.Size(815, 446);
             this.metroTabControl1.TabIndex = 6;
             this.metroTabControl1.UseSelectable = true;
@@ -371,6 +372,7 @@
             this.Controls.Add(this.metroTabControl1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(862, 557);
             this.Name = "Form1";

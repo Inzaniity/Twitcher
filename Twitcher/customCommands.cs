@@ -13,9 +13,11 @@ namespace Twitcher
     public partial class customCommands : MetroFramework.Controls.MetroUserControl
     {
         public delegate void ButtonClickedEventHandler(object sender, EventArgs e);
+
         public delegate void DataGridViewCellEvent(object sender, DataGridViewCellEventArgs e);
 
         public event ButtonClickedEventHandler CommandBtn_Click;
+
         public event DataGridViewCellEvent CellButton_Click;
 
         public customCommands()
@@ -25,7 +27,7 @@ namespace Twitcher
 
         private void customCommands_Load(object sender, EventArgs e)
         {
-
+            comboBoxUserLevel.SelectedIndex = 0;
         }
 
         private void metroButton3_Click(object sender, EventArgs e)
@@ -35,15 +37,30 @@ namespace Twitcher
 
         public string commandTrigger
         {
-            get { return txtBoxCommandTrigger.Text; }
+            get
+            {
+                if (txtBoxCommandTrigger.Text != "")
+                {
+                    return txtBoxCommandTrigger.Text;
+                }
+                return "";
+            }
         }
 
         public string commandReturn
         {
-            get { return txtBoxCommandReturnText.Text; }
+            get
+            {
+                if (txtBoxCommandReturnText.Text != "")
+                {
+                    return txtBoxCommandReturnText.Text;
+                }
+                return "";
+            }
         }
 
         public string commandUserlevel
+
         {
             get { return comboBoxUserLevel.SelectedItem.ToString(); }
         }

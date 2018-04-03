@@ -35,7 +35,7 @@ namespace Twitcher
         {
             var dg = (MetroFramework.Controls.MetroGrid)sender;
             if (e.ColumnIndex == 4)
-                if (MessageBox.Show("Do you really want to delete the command \"" + cc.metroGrid1.Rows[e.RowIndex].Cells[1].Value + "\" ?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MetroMessageBox.Show(this, "Do you really want to delete the command \"" + cc.metroGrid1.Rows[e.RowIndex].Cells[1].Value + "\" ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
                     _sqlQuery = "DELETE FROM commands WHERE id = " + cc.metroGrid1.Rows[e.RowIndex].Cells[0].Value + ";";
                     _dbConnection.Open();
@@ -158,8 +158,29 @@ namespace Twitcher
 
         private void SendMsg()
         {
-            _client.SendMessage(txtBoxChatMsg.Text);
-            txtBoxChatMsg.Clear();
+            if (_client != null)
+            {
+                if (_client.IsConnected)
+                {
+                    _client.SendMessage(txtBoxChatMsg.Text);
+                    //Timestamp
+                    AppendTextBox(DateTime.Now.ToString("h:mm:ss "), richTextBox1.ForeColor, FontStyle.Italic);
+                    // Colored Username
+                    AppendTextBox(Properties.Settings.Default.botname, Color.Teal, FontStyle.Bold);
+                    // Message
+                    AppendTextBox(": " + txtBoxChatMsg.Text + Environment.NewLine, richTextBox1.ForeColor, FontStyle.Regular);
+
+                    txtBoxChatMsg.Clear();
+                }
+                else
+                {
+                    MetroMessageBox.Show(this, "The Bot is not connected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MetroMessageBox.Show(this, "The Bot is not initialized!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -196,12 +217,6 @@ namespace Twitcher
             }
         }
 
-        private void Button3_Click(object sender, EventArgs e)
-        {
-            AppendTextBox("Test", Color.Coral, FontStyle.Bold);
-            AppendTextBox(": " + "Lorem Ipsum test" + Environment.NewLine, richTextBox1.ForeColor, FontStyle.Regular);
-        }
-
         public void applyStyle()
         {
             try
@@ -227,7 +242,7 @@ namespace Twitcher
             }
             catch (Exception e)
             {
-                MetroMessageBox.Show(Owner, e.Message);
+                MetroMessageBox.Show(this, e.Message);
             }
         }
 
@@ -239,11 +254,6 @@ namespace Twitcher
             metroStyleManager1.Style = Style;
             Style = metroStyleManager1.Style;
             metroStyleManager1.Update();
-        }
-
-        private void metroLink1_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://twitchapps.com/tmi/");
         }
 
         private void MetroToggle1_CheckedChanged(object sender, EventArgs e)

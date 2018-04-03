@@ -113,6 +113,7 @@
             this.metroLink1.TabIndex = 13;
             this.metroLink1.Text = "OAuth Key";
             this.metroLink1.UseSelectable = true;
+            this.metroLink1.Click += new System.EventHandler(this.metroLink1_Click);
             // 
             // metroLabel4
             // 

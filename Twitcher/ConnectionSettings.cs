@@ -59,5 +59,10 @@ namespace Twitcher
             Properties.Settings.Default.channelname = ChannelString;
             Properties.Settings.Default.Save();
         }
+
+        private void metroLink1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://twitchapps.com/tmi/");
+        }
     }
 }
