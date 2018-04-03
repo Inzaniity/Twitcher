@@ -61,7 +61,6 @@ namespace Twitcher
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            treeView1.ExpandAll();
             metroPanel1.Controls.Add(ds);
             metroPanel1.Controls.Add(cs);
             metroPanel1.Controls.Add(pb);
@@ -80,8 +79,6 @@ namespace Twitcher
             applyStyle();
 
             #endregion Reading from Config (Theme Style and other)
-
-            comboBoxUserLevel.SelectedIndex = 0;
 
             #region Database Stuff
 
@@ -102,7 +99,6 @@ namespace Twitcher
 
             #endregion Database Stuff
         }
-
 
         private void Ds_MetroToggle_Click(object sender, EventArgs e)
         {
@@ -166,17 +162,6 @@ namespace Twitcher
             txtBoxChatMsg.Clear();
         }
 
-        private void btnSong_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                txtBoxSong.Text = openFileDialog1.FileName;
-                txtBoxSong.Select(txtBoxSong.MaxLength, 0);
-                Properties.Settings.Default.songPath = openFileDialog1.FileName;
-                Properties.Settings.Default.Save();
-            }
-        }
-
         private void Button1_Click(object sender, EventArgs e)
         {
             try
@@ -217,7 +202,6 @@ namespace Twitcher
             AppendTextBox(": " + "Lorem Ipsum test" + Environment.NewLine, richTextBox1.ForeColor, FontStyle.Regular);
         }
 
-
         public void applyStyle()
         {
             try
@@ -257,33 +241,6 @@ namespace Twitcher
             metroStyleManager1.Update();
         }
 
-        private void metroButton3_Click_1(object sender, EventArgs e)
-        {
-            _sqlQuery = "INSERT INTO `commands` (trigger, returntext, userlevel) values ('" + txtBoxCommandTrigger.Text + "', '" + txtBoxCommandReturnText.Text + "', '" + comboBoxUserLevel.SelectedItem + "');";
-            _dbConnection.Open();
-            _command = new SQLiteCommand(_sqlQuery, _dbConnection);
-            _command.ExecuteNonQuery();
-            _dbConnection.Close();
-
-            ReadDb();
-        }
-
-        private void metroGrid1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 4)
-                if (MessageBox.Show("Do you really want to delete the command \"" + metroGrid1.Rows[e.RowIndex].Cells[1].Value + "\" ?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    _sqlQuery = "DELETE FROM commands WHERE id = " + metroGrid1.Rows[e.RowIndex].Cells[0].Value + ";";
-                    _dbConnection.Open();
-                    _command = new SQLiteCommand(_sqlQuery, _dbConnection);
-                    _command.ExecuteNonQuery();
-                    _dbConnection.Close();
-
-                    ReadDb();
-                }
-                else { return; }
-        }
-
         private void metroLink1_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://twitchapps.com/tmi/");
@@ -307,23 +264,6 @@ namespace Twitcher
             }
             Properties.Settings.Default.Save();
             metroStyleManager1.Update();
-        }
-
-        private void metroToggle2_CheckedChanged_1(object sender, EventArgs e)
-        {
-            if (metroToggle2.Checked)
-            {
-                btnSong.Enabled = true;
-                txtBoxSong.Enabled = true;
-                Properties.Settings.Default.songEnabeld = true;
-            }
-            else
-            {
-                btnSong.Enabled = false;
-                txtBoxSong.Enabled = false;
-                Properties.Settings.Default.songEnabeld = false;
-            }
-            Properties.Settings.Default.Save();
         }
 
         private void OnCommandReceived(object sender, OnWhisperCommandReceivedArgs e)
@@ -454,52 +394,6 @@ namespace Twitcher
             }
         }
 
-        private void metroTabControl3_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            Graphics g = e.Graphics;
-            Brush _textBrush;
-
-            // Get the item from the collection.
-            TabPage _tabPage = metroTabControl3.TabPages[e.Index];
-
-            // Get the real bounds for the tab rectangle.
-            Rectangle _tabBounds = metroTabControl3.GetTabRect(e.Index);
-
-            if (e.State == DrawItemState.Selected)
-            {
-                // Draw a different background color, and don't paint a focus rectangle.
-                _textBrush = new SolidBrush(Color.Red);
-                g.FillRectangle(Brushes.Gray, e.Bounds);
-            }
-            else
-            {
-                _textBrush = new System.Drawing.SolidBrush(e.ForeColor);
-                e.DrawBackground();
-            }
-
-            // Use our own font.
-            Font _tabFont = new Font("Arial", (float)10.0, FontStyle.Bold, GraphicsUnit.Pixel);
-
-            // Draw string. Center the text.
-            StringFormat _stringFlags = new StringFormat();
-            _stringFlags.Alignment = StringAlignment.Center;
-            _stringFlags.LineAlignment = StringAlignment.Center;
-            g.DrawString(_tabPage.Text, _tabFont, _textBrush, _tabBounds, new StringFormat(_stringFlags));
-        }
-
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            foreach (Control c in metroPanel1.Controls)
-            {
-                if(c.Tag == treeView1.SelectedNode.Tag) {
-                    c.Visible = true;
-                } else
-                {
-                    c.Visible = false;
-                }
-            }
-        }
-
         private void ReadDb()
         {
             cc.metroGrid1.Rows.Clear();
@@ -522,6 +416,42 @@ namespace Twitcher
         {
             if (e.KeyCode != Keys.Enter) return;
             SendMsg();
+        }
+
+        private void metroLink1_Click_1(object sender, EventArgs e)
+        {
+            var link = (MetroFramework.Controls.MetroLink)sender;
+
+            foreach (Control c in metroTabControl1.TabPages[1].Controls)
+            {
+                if (c is MetroFramework.Controls.MetroLink)
+                {
+                    var linkToFocus = (MetroFramework.Controls.MetroLink)c;
+
+                    if (linkToFocus.Focused)
+                    {
+                        linkToFocus.FontWeight = MetroLinkWeight.Bold;
+                    }
+                    else
+                    {
+                        linkToFocus.FontWeight = MetroLinkWeight.Regular;
+                    }
+                    c.Refresh();
+                }
+            }
+
+            foreach (Control c in metroPanel1.Controls)
+            {
+                if (link.Tag == c.Tag)
+                {
+                    c.Visible = true;
+                }
+                else
+                {
+                    c.Visible = false;
+                }
+            }
+            Update();
         }
 
         public void UpdateStyle(int style)
