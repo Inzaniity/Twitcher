@@ -50,12 +50,24 @@ namespace Twitcher
 
         private void Cc_CommandBtn_Click(object sender, EventArgs e)
         {
-            _sqlQuery = "INSERT INTO `commands` (trigger, returntext, userlevel) values ('" + cc.commandTrigger + "', '" + cc.commandReturn + "', '" + cc.commandUserlevel + "');";
+
+            _sqlQuery = "SELECT count(*) FROM commands WHERE trigger='"+ cc.commandTrigger +"'";
             _dbConnection.Open();
             _command = new SQLiteCommand(_sqlQuery, _dbConnection);
-            _command.ExecuteNonQuery();
+            int count = Convert.ToInt32(_command.ExecuteScalar());
             _dbConnection.Close();
-
+            if (count == 0)
+            {
+                _sqlQuery = "INSERT INTO `commands` (trigger, returntext, userlevel) values ('" + cc.commandTrigger + "', '" + cc.commandReturn + "', '" + cc.commandUserlevel + "');";
+                _dbConnection.Open();
+                _command = new SQLiteCommand(_sqlQuery, _dbConnection);
+                _command.ExecuteNonQuery();
+                _dbConnection.Close();
+            }
+            else
+            {
+                MetroMessageBox.Show(this, "\"" + cc.commandTrigger + "\" already exists in the database ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             ReadDb();
         }
 
