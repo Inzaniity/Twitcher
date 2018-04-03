@@ -201,6 +201,7 @@
             this.Controls.Add(this.txtBoxChannelName);
             this.Name = "ConnectionSettings";
             this.Size = new System.Drawing.Size(690, 389);
+            this.Tag = "cs";
             this.UseStyleColors = true;
             this.Load += new System.EventHandler(this.ConnectionSettings_Load_1);
             this.ResumeLayout(false);

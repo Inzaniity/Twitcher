@@ -74,5 +74,10 @@ namespace Twitcher
                 themeToggle.CheckedChanged += onToggleChange;
             }
         }
+
+        private void themeToggle_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -16,16 +16,93 @@ namespace Twitcher
         private SQLiteCommand _command;
         private ConnectionCredentials _credentials;
         private readonly SQLiteConnection _dbConnection = new SQLiteConnection("Data Source = db.sqlite; Version = 3;");
-        private string _path, _song, _sqlQuery;
+        private string _song, _sqlQuery;
         private ConnectionSettings cs = new ConnectionSettings();
         private AppearanceSettings ds = new AppearanceSettings();
+        private preBuildCommands pb = new preBuildCommands();
+        private customCommands cc = new customCommands();
 
         public Form1()
         {
             InitializeComponent();
             ds.MetroTile_Click += Ds_MetroTile_Click;
             ds.MetroCheckedChange += Ds_MetroToggle_Click;
+            cc.CommandBtn_Click += Cc_CommandBtn_Click;
+            cc.CellButton_Click += Cc_CellButton_Click;
         }
+
+        private void Cc_CellButton_Click(object sender, DataGridViewCellEventArgs e)
+        {
+            var dg = (MetroFramework.Controls.MetroGrid)sender;
+            if (e.ColumnIndex == 4)
+                if (MessageBox.Show("Do you really want to delete the command \"" + cc.metroGrid1.Rows[e.RowIndex].Cells[1].Value + "\" ?", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    _sqlQuery = "DELETE FROM commands WHERE id = " + cc.metroGrid1.Rows[e.RowIndex].Cells[0].Value + ";";
+                    _dbConnection.Open();
+                    _command = new SQLiteCommand(_sqlQuery, _dbConnection);
+                    _command.ExecuteNonQuery();
+                    _dbConnection.Close();
+
+                    ReadDb();
+                }
+                else { return; }
+        }
+
+        private void Cc_CommandBtn_Click(object sender, EventArgs e)
+        {
+            _sqlQuery = "INSERT INTO `commands` (trigger, returntext, userlevel) values ('" + cc.commandTrigger + "', '" + cc.commandReturn + "', '" + cc.commandUserlevel + "');";
+            _dbConnection.Open();
+            _command = new SQLiteCommand(_sqlQuery, _dbConnection);
+            _command.ExecuteNonQuery();
+            _dbConnection.Close();
+
+            ReadDb();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            treeView1.ExpandAll();
+            metroPanel1.Controls.Add(ds);
+            metroPanel1.Controls.Add(cs);
+            metroPanel1.Controls.Add(pb);
+            metroPanel1.Controls.Add(cc);
+
+            foreach (Control item in metroPanel1.Controls)
+            {
+                item.Visible = false;
+            }
+
+            #region Reading from Config (Theme Style and other)
+
+            cs.botNameString = Properties.Settings.Default.botname;
+            cs.OAuthString = Properties.Settings.Default.oauth;
+            cs.ChannelString = Properties.Settings.Default.channelname;
+            applyStyle();
+
+            #endregion Reading from Config (Theme Style and other)
+
+            comboBoxUserLevel.SelectedIndex = 0;
+
+            #region Database Stuff
+
+            //TODO DB Stuff
+            if (!File.Exists("db.sqlite"))
+            {
+                SQLiteConnection.CreateFile("db.sqlite");
+                _sqlQuery = "CREATE TABLE `commands` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, `trigger` TEXT NOT NULL UNIQUE, `returntext` TEXT NOT NULL, `userlevel` TEXT NOT NULL);";
+                _dbConnection.Open();
+                _command = new SQLiteCommand(_sqlQuery, _dbConnection);
+                _command.ExecuteNonQuery();
+                _dbConnection.Close();
+            }
+            else
+            {
+                ReadDb();
+            }
+
+            #endregion Database Stuff
+        }
+
 
         private void Ds_MetroToggle_Click(object sender, EventArgs e)
         {
@@ -140,52 +217,6 @@ namespace Twitcher
             AppendTextBox(": " + "Lorem Ipsum test" + Environment.NewLine, richTextBox1.ForeColor, FontStyle.Regular);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            treeView1.ExpandAll();
-            metroPanel1.Controls.Add(ds);
-            metroPanel1.Controls.Add(cs);
-
-            foreach (Control item in metroPanel1.Controls)
-            {
-                item.Visible = false;
-            }
-
-            #region Reading from Config (Theme Style and other)
-
-            cs.botNameString = Properties.Settings.Default.botname;
-            cs.OAuthString = Properties.Settings.Default.oauth;
-            cs.ChannelString = Properties.Settings.Default.channelname;
-            txtBoxSong.Text = Properties.Settings.Default.songPath;
-            metroToggle2.Checked = Properties.Settings.Default.songEnabeld;
-            btnSong.Enabled = Properties.Settings.Default.songEnabeld;
-            _path = Properties.Settings.Default.songPath;
-
-            applyStyle();
-
-            #endregion Reading from Config (Theme Style and other)
-
-            comboBoxUserLevel.SelectedIndex = 0;
-
-            #region Database Stuff
-
-            //TODO DB Stuff
-            if (!File.Exists("db.sqlite"))
-            {
-                SQLiteConnection.CreateFile("db.sqlite");
-                _sqlQuery = "CREATE TABLE `commands` (`id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, `trigger` TEXT NOT NULL UNIQUE, `returntext` TEXT NOT NULL, `userlevel` TEXT NOT NULL);";
-                _dbConnection.Open();
-                _command = new SQLiteCommand(_sqlQuery, _dbConnection);
-                _command.ExecuteNonQuery();
-                _dbConnection.Close();
-            }
-            else
-            {
-                ReadDb();
-            }
-
-            #endregion Database Stuff
-        }
 
         public void applyStyle()
         {
@@ -351,7 +382,7 @@ namespace Twitcher
             if (e.ChatMessage.Message.StartsWith("!song"))
                 if (Properties.Settings.Default.songEnabeld)
                 {
-                    _song = File.ReadAllText(_path);
+                    _song = File.ReadAllText(Properties.Settings.Default.songPath);
                     _client.SendMessage("@" + e.ChatMessage.Username + " | " + _song);
                     //Timestamp
                     AppendTextBox(DateTime.Now.ToString("h:mm:ss "), richTextBox1.ForeColor, FontStyle.Italic);
@@ -458,28 +489,27 @@ namespace Twitcher
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (treeView1.SelectedNode.Text == "Connection")
+            foreach (Control c in metroPanel1.Controls)
             {
-                ds.Visible = false;
-                cs.Visible = true;
-            }
-            else if (treeView1.SelectedNode.Text == "Appearance")
-            {
-                ds.Visible = true;
-                cs.Visible = false;
+                if(c.Tag == treeView1.SelectedNode.Tag) {
+                    c.Visible = true;
+                } else
+                {
+                    c.Visible = false;
+                }
             }
         }
 
         private void ReadDb()
         {
-            metroGrid1.Rows.Clear();
+            cc.metroGrid1.Rows.Clear();
 
             _dbConnection.Open();
             _sqlQuery = "select * from commands order by id asc";
             _command = new SQLiteCommand(_sqlQuery, _dbConnection);
             var reader = _command.ExecuteReader();
             while (reader.Read())
-                metroGrid1.Rows.Add(new object[] {
+                cc.metroGrid1.Rows.Add(new object[] {
                     reader.GetValue(0),
                     reader.GetValue(1),
                     reader.GetValue(2),

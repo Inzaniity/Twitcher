@@ -250,6 +250,7 @@
             this.themeToggle.TabIndex = 27;
             this.themeToggle.Text = "Aus";
             this.themeToggle.UseSelectable = true;
+            this.themeToggle.CheckedChanged += new System.EventHandler(this.themeToggle_CheckedChanged);
             // 
             // metroLabel2
             // 
@@ -283,6 +284,7 @@
             this.Controls.Add(this.metroLabel2);
             this.Name = "AppearanceSettings";
             this.Size = new System.Drawing.Size(690, 389);
+            this.Tag = "ds";
             this.ResumeLayout(false);
             this.PerformLayout();
 
