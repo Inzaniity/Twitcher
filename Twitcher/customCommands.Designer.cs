@@ -36,14 +36,14 @@
             this.comboBoxUserLevel = new MetroFramework.Controls.MetroComboBox();
             this.txtBoxCommandTrigger = new MetroFramework.Controls.MetroTextBox();
             this.metroGrid1 = new MetroFramework.Controls.MetroGrid();
+            this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
+            this.txtBoxCommandReturnText = new MetroFramework.Controls.MetroTextBox();
+            this.metroToolTip1 = new MetroFramework.Components.MetroToolTip();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Trigger = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ReturnText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Userlevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Action = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
-            this.txtBoxCommandReturnText = new MetroFramework.Controls.MetroTextBox();
-            this.metroToolTip1 = new MetroFramework.Components.MetroToolTip();
+            this.Action = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.metroGrid1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -166,43 +166,6 @@
             this.metroGrid1.TabIndex = 20;
             this.metroGrid1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.metroGrid1_CellClick);
             // 
-            // ID
-            // 
-            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 41;
-            // 
-            // Trigger
-            // 
-            this.Trigger.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Trigger.HeaderText = "Trigger";
-            this.Trigger.Name = "Trigger";
-            this.Trigger.ReadOnly = true;
-            // 
-            // ReturnText
-            // 
-            this.ReturnText.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ReturnText.HeaderText = "ReturnText";
-            this.ReturnText.Name = "ReturnText";
-            this.ReturnText.ReadOnly = true;
-            // 
-            // Userlevel
-            // 
-            this.Userlevel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Userlevel.HeaderText = "Userlevel";
-            this.Userlevel.Name = "Userlevel";
-            this.Userlevel.ReadOnly = true;
-            // 
-            // Action
-            // 
-            this.Action.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Action.HeaderText = "Action";
-            this.Action.Name = "Action";
-            this.Action.ReadOnly = true;
-            this.Action.Width = 44;
-            // 
             // metroLabel6
             // 
             this.metroLabel6.FontSize = MetroFramework.MetroLabelSize.Tall;
@@ -255,6 +218,45 @@
             this.metroToolTip1.StyleManager = null;
             this.metroToolTip1.Theme = MetroFramework.MetroThemeStyle.Light;
             // 
+            // ID
+            // 
+            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Width = 41;
+            // 
+            // Trigger
+            // 
+            this.Trigger.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Trigger.HeaderText = "Trigger";
+            this.Trigger.Name = "Trigger";
+            this.Trigger.ReadOnly = true;
+            // 
+            // ReturnText
+            // 
+            this.ReturnText.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ReturnText.HeaderText = "ReturnText";
+            this.ReturnText.Name = "ReturnText";
+            this.ReturnText.ReadOnly = true;
+            // 
+            // Userlevel
+            // 
+            this.Userlevel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Userlevel.HeaderText = "Userlevel";
+            this.Userlevel.Name = "Userlevel";
+            this.Userlevel.ReadOnly = true;
+            // 
+            // Action
+            // 
+            this.Action.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Action.HeaderText = "Action";
+            this.Action.Name = "Action";
+            this.Action.ReadOnly = true;
+            this.Action.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Action.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Action.Width = 44;
+            // 
             // customCommands
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -280,13 +282,13 @@
         private MetroFramework.Controls.MetroComboBox comboBoxUserLevel;
         private MetroFramework.Controls.MetroTextBox txtBoxCommandReturnText;
         private MetroFramework.Controls.MetroTextBox txtBoxCommandTrigger;
+        private MetroFramework.Controls.MetroLabel metroLabel6;
+        public MetroFramework.Controls.MetroGrid metroGrid1;
+        private MetroFramework.Components.MetroToolTip metroToolTip1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Trigger;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReturnText;
         private System.Windows.Forms.DataGridViewTextBoxColumn Userlevel;
-        private System.Windows.Forms.DataGridViewButtonColumn Action;
-        private MetroFramework.Controls.MetroLabel metroLabel6;
-        public MetroFramework.Controls.MetroGrid metroGrid1;
-        private MetroFramework.Components.MetroToolTip metroToolTip1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Action;
     }
 }

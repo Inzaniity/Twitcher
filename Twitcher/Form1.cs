@@ -35,23 +35,28 @@ namespace Twitcher
         {
             var dg = (MetroFramework.Controls.MetroGrid)sender;
             if (e.ColumnIndex == 4)
-                if (MetroMessageBox.Show(this, "Do you really want to delete the command \"" + cc.metroGrid1.Rows[e.RowIndex].Cells[1].Value + "\" ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                try
                 {
-                    _sqlQuery = "DELETE FROM commands WHERE id = " + cc.metroGrid1.Rows[e.RowIndex].Cells[0].Value + ";";
-                    _dbConnection.Open();
-                    _command = new SQLiteCommand(_sqlQuery, _dbConnection);
-                    _command.ExecuteNonQuery();
-                    _dbConnection.Close();
+                    if (MetroMessageBox.Show(this, "\nDo you really want to delete the command \"" + cc.metroGrid1.Rows[e.RowIndex].Cells[1].Value + "\" ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    {
+                        _sqlQuery = "DELETE FROM commands WHERE id = " + cc.metroGrid1.Rows[e.RowIndex].Cells[0].Value + ";";
+                        _dbConnection.Open();
+                        _command = new SQLiteCommand(_sqlQuery, _dbConnection);
+                        _command.ExecuteNonQuery();
+                        _dbConnection.Close();
 
-                    ReadDb();
+                        ReadDb();
+                    }
+                    else { return; }
                 }
-                else { return; }
+                catch (Exception)
+                {
+                }
         }
 
         private void Cc_CommandBtn_Click(object sender, EventArgs e)
         {
-
-            _sqlQuery = "SELECT count(*) FROM commands WHERE trigger='"+ cc.commandTrigger +"'";
+            _sqlQuery = "SELECT count(*) FROM commands WHERE trigger='" + cc.commandTrigger + "'";
             _dbConnection.Open();
             _command = new SQLiteCommand(_sqlQuery, _dbConnection);
             int count = Convert.ToInt32(_command.ExecuteScalar());
@@ -63,10 +68,13 @@ namespace Twitcher
                 _command = new SQLiteCommand(_sqlQuery, _dbConnection);
                 _command.ExecuteNonQuery();
                 _dbConnection.Close();
+                cc.commandTrigger = "";
+                cc.commandReturn = "";
+                cc.commandUserlevel = "0";
             }
             else
             {
-                MetroMessageBox.Show(this, "\"" + cc.commandTrigger + "\" already exists in the database ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, "\n\"" + cc.commandTrigger + "\" already exists in the database ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             ReadDb();
         }
@@ -186,12 +194,12 @@ namespace Twitcher
                 }
                 else
                 {
-                    MetroMessageBox.Show(this, "The Bot is not connected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroMessageBox.Show(this, "\nThe Bot is not connected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MetroMessageBox.Show(this, "The Bot is not initialized!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, "\nThe Bot is not initialized!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -254,7 +262,7 @@ namespace Twitcher
             }
             catch (Exception e)
             {
-                MetroMessageBox.Show(this, e.Message);
+                MetroMessageBox.Show(this, "\n" + e.Message);
             }
         }
 
@@ -429,7 +437,8 @@ namespace Twitcher
                     reader.GetValue(0),
                     reader.GetValue(1),
                     reader.GetValue(2),
-                    reader.GetValue(3)
+                    reader.GetValue(3),
+                    "Delete"
                 });
             _dbConnection.Close();
         }
