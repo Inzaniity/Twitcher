@@ -182,15 +182,22 @@ namespace Twitcher
             {
                 if (_client.IsConnected)
                 {
-                    _client.SendMessage(txtBoxChatMsg.Text);
-                    //Timestamp
-                    AppendTextBox(DateTime.Now.ToString("h:mm:ss "), richTextBox1.ForeColor, FontStyle.Italic);
-                    // Colored Username
-                    AppendTextBox(Properties.Settings.Default.botname, Color.Teal, FontStyle.Bold);
-                    // Message
-                    AppendTextBox(": " + txtBoxChatMsg.Text + Environment.NewLine, richTextBox1.ForeColor, FontStyle.Regular);
+                    if (txtBoxChatMsg.Text != "")
+                    {
+                        _client.SendMessage(txtBoxChatMsg.Text);
+                        //Timestamp
+                        AppendTextBox(DateTime.Now.ToString("h:mm:ss "), richTextBox1.ForeColor, FontStyle.Italic);
+                        // Colored Username
+                        AppendTextBox(Properties.Settings.Default.botname, Color.Teal, FontStyle.Bold);
+                        // Message
+                        AppendTextBox(": " + txtBoxChatMsg.Text + Environment.NewLine, richTextBox1.ForeColor, FontStyle.Regular);
 
-                    txtBoxChatMsg.Clear();
+                        txtBoxChatMsg.Clear();
+                    }
+                    else
+                    {
+                        MetroMessageBox.Show(this, "\nThe message can't be empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
