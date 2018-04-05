@@ -1,8 +1,11 @@
 ﻿using MetroFramework;
+using Newtonsoft.Json;
 using System;
 using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TwitchLib;
 using TwitchLib.Events.Client;
@@ -29,6 +32,36 @@ namespace Twitcher
             ds.MetroCheckedChange += Ds_MetroToggle_Click;
             cc.CommandBtn_Click += Cc_CommandBtn_Click;
             cc.CellButton_Click += Cc_CellButton_Click;
+        }
+
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            var result = GetSummonder("Inzaniity").Result;
+
+            dynamic stuff = JsonConvert.DeserializeObject(result);
+        }
+
+        private static async Task<string> GetSummonder(string id)
+        {
+            var url = "https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + id + "?api_key=RGAPI-066ecd5b-664d-4c2c-abed-4871d4627a98";
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string strResult = await response.Content.ReadAsStringAsync();
+
+                    return strResult;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
         private void Cc_CellButton_Click(object sender, DataGridViewCellEventArgs e)

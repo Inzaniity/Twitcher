@@ -77,6 +77,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.metroStyleExtender1 = new MetroFramework.Components.MetroStyleExtender(this.components);
+            this.button3 = new System.Windows.Forms.Button();
             this.metroTabControl1.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
             this.metroTabPage2.SuspendLayout();
@@ -363,11 +364,22 @@
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(0, 22);
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(584, 34);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(862, 557);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.metroTabControl1);
             this.Controls.Add(this.button1);
@@ -401,6 +413,7 @@
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroLink metroLink5;
         private MetroFramework.Controls.MetroLink metroLink1;
+        private System.Windows.Forms.Button button3;
     }
 }
 
