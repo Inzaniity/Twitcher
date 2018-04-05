@@ -1,9 +1,11 @@
 ﻿using MetroFramework;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -36,14 +38,46 @@ namespace Twitcher
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            var result = GetSummonder("Inzaniity").Result;
+            //var result = GetSummonder("Inzaniity").Result;
 
+            var result = await Task.Run(() => GetSummoner("Tilted Emey").Result);
             dynamic stuff = JsonConvert.DeserializeObject(result);
+            Console.WriteLine("Accountname: " + stuff.name + " AccountID: " + stuff.id);
+            string ID = stuff.id;
+            result = await Task.Run(() => GetLeagueRank(ID).Result);
+            stuff = JsonConvert.DeserializeObject(result);
+            dynamic leagues = JArray.Parse(result);
+            dynamic soloQueue = leagues[1];
+            Console.WriteLine(soloQueue.tier + " " + soloQueue.rank);
         }
 
-        private static async Task<string> GetSummonder(string id)
+        private static async Task<string> GetSummoner(string id)
         {
             var url = "https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + id + "?api_key=RGAPI-066ecd5b-664d-4c2c-abed-4871d4627a98";
+
+            //using (var client = new HttpClient(new HttpClientHandler { Proxy = new WebProxy("proxy.rlp:8080", false) }))
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string strResult = await response.Content.ReadAsStringAsync();
+
+                    return strResult;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private static async Task<string> GetLeagueRank(string id)
+        {
+            var url = "https://euw1.api.riotgames.com/lol/league/v3/positions/by-summoner/" + id + "?api_key=RGAPI-066ecd5b-664d-4c2c-abed-4871d4627a98";
 
             using (var client = new HttpClient())
             {
