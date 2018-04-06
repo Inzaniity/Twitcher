@@ -1,0 +1,22 @@
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\bin\Debug\Twitcher WPF.exe.config
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\obj\Debug\Twitcher WPF.csprojResolveAssemblyReference.cache
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\obj\Debug\MainWindow.g.cs
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\obj\Debug\App.g.cs
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\obj\Debug\Twitcher WPF_MarkupCompile.cache
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\obj\Debug\Twitcher WPF_MarkupCompile.lref
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\bin\Debug\Twitcher WPF.exe
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\bin\Debug\Twitcher WPF.pdb
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\bin\Debug\ControlzEx.dll
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\bin\Debug\MahApps.Metro.dll
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\bin\Debug\System.Windows.Interactivity.dll
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\bin\Debug\ControlzEx.pdb
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\bin\Debug\MahApps.Metro.pdb
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\bin\Debug\MahApps.Metro.xml
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\obj\Debug\MainWindow.baml
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\obj\Debug\Twitcher WPF.g.resources
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\obj\Debug\Twitcher_WPF.Properties.Resources.resources
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\obj\Debug\Twitcher WPF.csproj.GenerateResource.Cache
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\obj\Debug\Twitcher WPF.exe
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\obj\Debug\Twitcher WPF.pdb
+c:\users\bloemacherja\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\obj\Debug\App.baml
+C:\Users\BloemacherJa\documents\visual studio 2015\Projects\Twitcher WPF\Twitcher WPF\obj\Debug\Twitcher_WPF.Colors.resources
